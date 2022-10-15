@@ -34,6 +34,7 @@ namespace MovementInput
         private bool crouch;
         private bool run;
         private bool dash;
+        private bool slide;
 
         /*** Setter Getter Methods ***/
         public void setMoveForward(bool forward)
@@ -76,6 +77,11 @@ namespace MovementInput
             dash = d;
         }
 
+        public void setSlide(bool s)
+        {
+            slide = s;
+        }
+
         public bool getMoveForward()
         {
             return moveForward;
@@ -114,6 +120,11 @@ namespace MovementInput
         public bool getDash()
         {
             return dash;
+        }
+
+        public bool getSlide()
+        {
+            return slide;
         }
     }
 }

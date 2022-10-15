@@ -57,13 +57,23 @@ namespace MovementInput
             }
 
             //Crouch
-            if (Input.GetKey(KeyCode.LeftControl))
+            if (Input.GetKey(KeyCode.C))
             {
                 InputManager.Instance.setCrouch(true);
             }
             else
             {
                 InputManager.Instance.setCrouch(false);
+            }
+
+            //Slide
+            if (Input.GetKey(KeyCode.LeftControl))
+            {
+                InputManager.Instance.setSlide(true);
+            }
+            else
+            {
+                InputManager.Instance.setSlide(false);
             }
 
             //Run
