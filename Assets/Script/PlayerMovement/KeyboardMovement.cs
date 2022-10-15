@@ -50,10 +50,12 @@ namespace MovementInput
             if (Input.GetKey(KeyCode.Space))
             {
                 InputManager.Instance.setJump(true);
+                InputManager.Instance.setWallJump(true);
             }
             else
             {
                 InputManager.Instance.setJump(false);
+                InputManager.Instance.setWallJump(false);
             }
 
             //Crouch

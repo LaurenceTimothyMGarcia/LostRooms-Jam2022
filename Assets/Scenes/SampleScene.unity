@@ -703,10 +703,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   wallRunForce: 500
+  wallJumpUpForce: 3
+  wallJumpSideForce: 12
   wallClimbSpeed: 3
   maxWallRunTime: 1.5
   wallCheckDistance: 0.7
   minJumpHeight: 2
+  exitWallTime: 0
   orientation: {fileID: 1406134844}
 --- !u!1 &963194225
 GameObject:

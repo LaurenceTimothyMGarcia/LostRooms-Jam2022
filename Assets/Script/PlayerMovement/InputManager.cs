@@ -29,6 +29,7 @@ namespace MovementInput
 
         //Jump
         private bool jump;
+        private bool wallJump;
 
         //Movement boosts
         private bool crouch;
@@ -62,6 +63,11 @@ namespace MovementInput
         public void setJump(bool j)
         {
             jump = j;
+        }
+
+        public void setWallJump(bool wj)
+        {
+            wallJump = wj;
         }
 
         public void setCrouch(bool c)
@@ -117,6 +123,11 @@ namespace MovementInput
         public bool getJump()
         {
             return jump;
+        }
+
+        public bool getWallJump()
+        {
+            return wallJump;
         }
 
         public bool getCrouch()

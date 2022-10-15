@@ -10,6 +10,8 @@ namespace MovementInput
         [SerializeField] private LayerMask whatIsWall;
         [SerializeField] private LayerMask whatIsGround;
         [SerializeField] private float wallRunForce;
+        [SerializeField] private float wallJumpUpForce;
+        [SerializeField] private float wallJumpSideForce;
         [SerializeField] private float wallClimbSpeed;
         [SerializeField] private float maxWallRunTime;
 
@@ -27,6 +29,13 @@ namespace MovementInput
         private RaycastHit rightWallHit;
         private bool wallLeft;
         private bool wallRight;
+
+        [Header("Exit")]
+        [SerializeField] float exitWallTime;
+
+        private bool exitWall;
+        private float exitWallTimer;
+
 
         [Header("References")]
         [SerializeField] private Transform orientation;
@@ -70,7 +79,7 @@ namespace MovementInput
             verticalInput = playCon.getVerticalInput();
 
             //Wall Running state
-            if ((wallLeft || wallRight) && verticalInput > 0 && AboveGround())
+            if ((wallLeft || wallRight) && verticalInput > 0 && AboveGround() && !exitWall)
             {
                 //Start wall run
                 if (!playCon.isWallRun)
@@ -78,7 +87,29 @@ namespace MovementInput
                     StartWallRun();
                 }
 
+                if (InputManager.Instance.getWallJump())
+                {
+                    WallJump();
+                }
             }
+            else if (exitWall)
+            {
+                if (playCon.isWallRun)
+                {
+                    StopWallRun();
+                }
+
+                if (exitWallTimer > 0)
+                {
+                    exitWallTimer -= Time.deltaTime;
+                }
+
+                if (exitWallTimer <= 0)
+                {
+                    exitWall = false;
+                }
+            }
+
             else
             {
                 if (playCon.isWallRun)
@@ -125,6 +156,19 @@ namespace MovementInput
         private void StopWallRun()
         {
             playCon.isWallRun = false;
+        }
+
+        private void WallJump()
+        {
+            exitWall = true;
+            exitWallTimer = exitWallTime;
+
+            Vector3 wallNormal = wallRight ? rightWallHit.normal : leftWallHit.normal;
+
+            Vector3 forceToApp = transform.up * wallJumpUpForce + wallNormal * wallJumpSideForce;
+
+            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+            rb.AddForce(forceToApp, ForceMode.Impulse);
         }
     }
 }
