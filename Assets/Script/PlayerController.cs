@@ -6,44 +6,142 @@ namespace MovementInput
 {
     public class PlayerController : MonoBehaviour
     {
-        //Movement
-        [SerializeField] private float movementSpeed;
-        [SerializeField] private float maxMoveSpeed;
+        [Header("Movement")]
+        [SerializeField] private float moveSpeed;
+        [SerializeField] private float groundDrag;
 
-        private float activeMoveSpeed;
-        private float prevMoveSpeed;
+        [Header("Jump")]
+        [SerializeField] private float jumpForce;
+        [SerializeField] private float jumpCooldown;
+        [SerializeField] private float airMulti;
 
-        //Dash
-        [SerializeField] private float dashSpeed;   //Speed of dash
-        [SerializeField] private float dashTime;    //Dash last
-        [SerializeField] private float dashCooldown;//Cooldown of dash
-        [SerializeField] private float dashLength;  //Travel length of dash
+        private bool readyJump;
 
-        private float dashTimeCounter;              //Dash time counter
-        private float dashCoolCounter;              //current cooldown
-        private Vector3 tempVelocity;               //Speed before dash
+        [Header("GroundCheck")]
+        [SerializeField] private float playerHeight;
+        [SerializeField] private LayerMask whatIsGround;
+        private bool grounded;
 
-        //Jump
-        [SerializeField] private float jumpHeight;  //Jump velocity
-        [SerializeField] private int jumpCount;     //extra jumps
-        [SerializeField] private float fallGravScale;
+        [SerializeField] private Transform orientation;
 
-        private int remainJumps;
-        private bool isGrounded;
+        private float horizontalInput;
+        private float verticalInput;
 
+        private Vector3 moveDir;
 
         private Rigidbody rb;
 
         // Start is called before the first frame update
         void Start()
         {
-            
+            rb = GetComponent<Rigidbody>();
+            rb.freezeRotation = true;
+
+            readyJump = true;
         }
 
         // Update is called once per frame
         void Update()
         {
-            
+            grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+
+            PlayerInput();
+            SpeedControl();
+
+            //Apply drag
+            if (grounded)
+            {
+                rb.drag = groundDrag;
+            }
+            else
+            {
+                rb.drag = 0;
+            }
+        }
+
+        void FixedUpdate()
+        {
+            MovePlayer();
+        }
+
+        private void PlayerInput()
+        {
+            if (InputManager.Instance.getMoveForward())
+            {
+                verticalInput = 1;
+            }
+            else if (InputManager.Instance.getMoveBackward())
+            {
+                verticalInput = -1;
+            }
+            else
+            {
+                verticalInput = 0;
+            }
+
+            if (InputManager.Instance.getMoveRight())
+            {
+                horizontalInput = 1;
+            }
+            else if (InputManager.Instance.getMoveLeft())
+            {
+                horizontalInput = -1;
+            }
+            else
+            {
+                horizontalInput = 0;
+            }
+
+            if (InputManager.Instance.getJump() && readyJump && grounded)
+            {
+                readyJump = false;
+
+                Jump();
+
+                Invoke(nameof(ResetJump), jumpCooldown);
+            }
+        }
+
+        private void MovePlayer()
+        {
+
+            //Calculate movement
+            moveDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+            //Onground draag
+            if (grounded)
+            {
+                rb.AddForce(moveDir.normalized * moveSpeed * 10f, ForceMode.Force);
+            }
+            else if (!grounded)
+            {
+                rb.AddForce(moveDir.normalized * moveSpeed * 10f * airMulti, ForceMode.Force);
+            }
+
+        }
+
+        private void SpeedControl()
+        {
+            Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+            //Limit speed
+            if (flatVel.magnitude > moveSpeed)
+            {
+                Vector3 limitedVel = flatVel.normalized * moveSpeed;
+                rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+            }
+        }
+
+        private void Jump()
+        {
+            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        }
+
+        private void ResetJump()
+        {
+            readyJump = true;
         }
     }
 }
