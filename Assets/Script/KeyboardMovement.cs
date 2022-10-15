@@ -56,8 +56,28 @@ namespace MovementInput
                 InputManager.Instance.setJump(false);
             }
 
-            //Dash
+            //Crouch
+            if (Input.GetKey(KeyCode.LeftControl))
+            {
+                InputManager.Instance.setCrouch(true);
+            }
+            else
+            {
+                InputManager.Instance.setCrouch(false);
+            }
+
+            //Run
             if (Input.GetKey(KeyCode.LeftShift))
+            {
+                InputManager.Instance.setRun(true);
+            }
+            else
+            {
+                InputManager.Instance.setRun(false);
+            }
+
+            //Dash
+            if (Input.GetKey(KeyCode.Q))
             {
                 InputManager.Instance.setDash(true);
             }

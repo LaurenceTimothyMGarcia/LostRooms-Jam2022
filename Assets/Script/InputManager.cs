@@ -31,6 +31,8 @@ namespace MovementInput
         private bool jump;
 
         //Movement boosts
+        private bool crouch;
+        private bool run;
         private bool dash;
 
         /*** Setter Getter Methods ***/
@@ -57,6 +59,16 @@ namespace MovementInput
         public void setJump(bool j)
         {
             jump = j;
+        }
+
+        public void setCrouch(bool c)
+        {
+            crouch = c;
+        }
+
+        public void setRun(bool r)
+        {
+            run = r;
         }
 
         public void setDash(bool d)
@@ -87,6 +99,16 @@ namespace MovementInput
         public bool getJump()
         {
             return jump;
+        }
+
+        public bool getCrouch()
+        {
+            return crouch;
+        }
+
+        public bool getRun()
+        {
+            return run;
         }
 
         public bool getDash()
