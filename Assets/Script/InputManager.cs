@@ -31,10 +31,9 @@ namespace MovementInput
         private bool jump;
 
         //Movement boosts
-        private bool run;
         private bool dash;
 
-        /* Setter Getter Methods */
+        /*** Setter Getter Methods ***/
         public void setMoveForward(bool forward)
         {
             moveForward = forward;
@@ -58,11 +57,6 @@ namespace MovementInput
         public void setJump(bool j)
         {
             jump = j;
-        }
-
-        public void setRun(bool r)
-        {
-            run = r;
         }
 
         public void setDash(bool d)
@@ -93,11 +87,6 @@ namespace MovementInput
         public bool getJump()
         {
             return jump;
-        }
-
-        public bool getRun()
-        {
-            return run;
         }
 
         public bool getDash()
