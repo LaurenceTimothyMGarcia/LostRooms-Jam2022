@@ -70,20 +70,24 @@ namespace MovementInput
             if (Input.GetKey(KeyCode.LeftControl))
             {
                 InputManager.Instance.setSlide(true);
+                InputManager.Instance.setDownwardRun(true);
             }
             else
             {
                 InputManager.Instance.setSlide(false);
+                InputManager.Instance.setDownwardRun(false);
             }
 
             //Run
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 InputManager.Instance.setRun(true);
+                InputManager.Instance.setUpwardRun(true);
             }
             else
             {
                 InputManager.Instance.setRun(false);
+                InputManager.Instance.setUpwardRun(false);
             }
 
             //Dash

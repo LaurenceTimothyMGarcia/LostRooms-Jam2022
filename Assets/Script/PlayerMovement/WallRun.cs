@@ -10,6 +10,7 @@ namespace MovementInput
         [SerializeField] private LayerMask whatIsWall;
         [SerializeField] private LayerMask whatIsGround;
         [SerializeField] private float wallRunForce;
+        [SerializeField] private float wallClimbSpeed;
         [SerializeField] private float maxWallRunTime;
 
         private float wallRunTimer;
@@ -41,6 +42,15 @@ namespace MovementInput
         private void Update()
         {
             CheckForWall();
+            StateMachine();
+        }
+
+        private void FixedUpdate()
+        {
+            if (playCon.isWallRun)
+            {
+                WallRunningMovement();
+            }
         }
 
         private void CheckForWall()
@@ -63,8 +73,18 @@ namespace MovementInput
             if ((wallLeft || wallRight) && verticalInput > 0 && AboveGround())
             {
                 //Start wall run
+                if (!playCon.isWallRun)
+                {
+                    StartWallRun();
+                }
 
-
+            }
+            else
+            {
+                if (playCon.isWallRun)
+                {
+                    StopWallRun();
+                }
             }
         }
 
@@ -75,12 +95,36 @@ namespace MovementInput
 
         private void WallRunningMovement()
         {
+            rb.useGravity = false;
+            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
+            Vector3 wallNormal = wallRight ? rightWallHit.normal : leftWallHit.normal;
+
+            Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
+
+            if ((orientation.forward - wallForward).magnitude > (orientation.forward - -wallForward).magnitude)
+            {
+                wallForward = -wallForward;
+            }
+
+            rb.AddForce(wallForward * wallRunForce, ForceMode.Force);
+
+            if (InputManager.Instance.getUpwardRun())
+            {
+                rb.velocity = new Vector3(rb.velocity.x, wallClimbSpeed, rb.velocity.z);
+            }
+            if (InputManager.Instance.getDownwardRun())
+            {
+                rb.velocity = new Vector3(rb.velocity.x, -wallClimbSpeed, rb.velocity.z);
+            }
+
+            if (!(wallLeft && horizontalInput > 0) && !(wallRight && horizontalInput < 0))
+            rb.AddForce(-wallNormal * 100, ForceMode.Force);
         }
 
         private void StopWallRun()
         {
-
+            playCon.isWallRun = false;
         }
     }
 }
