@@ -87,6 +87,17 @@ namespace MovementInput
                     StartWallRun();
                 }
 
+                if (wallRunTimer > 0)
+                {
+                    wallRunTimer -= Time.deltaTime;
+                }
+
+                if (wallRunTimer <= 0 && playCon.isWallRun)
+                {
+                    exitWall = true;
+                    exitWallTimer = exitWallTime;
+                }
+
                 if (InputManager.Instance.getWallJump())
                 {
                     WallJump();
@@ -122,6 +133,8 @@ namespace MovementInput
         private void StartWallRun()
         {
             playCon.isWallRun = true;
+
+            wallRunTimer = maxWallRunTime;
         }
 
         private void WallRunningMovement()
