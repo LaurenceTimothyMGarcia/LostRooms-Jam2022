@@ -78,6 +78,8 @@ namespace MovementInput
             SpeedControl();
             StateHandler();
 
+            Debug.Log("Move Speed " + moveSpeed);
+
             //Apply drag
             if (grounded)
             {
