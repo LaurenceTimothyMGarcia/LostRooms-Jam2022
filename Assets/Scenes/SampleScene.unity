@@ -625,7 +625,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 10
   runSpeed: 30
+  slideSpeed: 50
   groundDrag: 5
+  speedIncreaseMulti: 1.5
+  slopeIncreaseMulti: 2.5
   jumpForce: 10
   jumpCooldown: 0.25
   airMulti: 0.4
@@ -638,6 +641,7 @@ MonoBehaviour:
   maxSlopeAngle: 40
   orientation: {fileID: 1406134844}
   state: 0
+  isSliding: 0
 --- !u!114 &733346682
 MonoBehaviour:
   m_ObjectHideFlags: 0

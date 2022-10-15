@@ -43,7 +43,7 @@ namespace MovementInput
                 StartSlide();
             }
 
-            if (!InputManager.Instance.getSlide() && isSliding)
+            if (!InputManager.Instance.getSlide() && playCon.isSliding)
             {
                 StopSlide();
             }
@@ -51,7 +51,7 @@ namespace MovementInput
 
         private void FixedUpdate()
         {
-            if (isSliding)
+            if (playCon.isSliding)
             {
                 SlidingMovement();
             }
@@ -59,7 +59,7 @@ namespace MovementInput
 
         private void StartSlide()
         {
-            isSliding = true;
+            playCon.isSliding = true;
 
             playerObj.localScale = new Vector3(playerObj.localScale.x, slideYScale, playerObj.localScale.z);
             rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
@@ -70,6 +70,17 @@ namespace MovementInput
         private void SlidingMovement()
         {
             Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+            if (!playCon.OnSlope() || rb.velocity.y > -0.1f)
+            {
+                rb.AddForce(inputDir.normalized * slideForce, ForceMode.Force);
+
+                slideTimer -= Time.deltaTime;
+            }
+            else
+            {
+                rb.AddForce(playCon.GetSlopeMoveDirection(inputDir) * slideForce, ForceMode.Force);
+            }
 
             rb.AddForce(inputDir.normalized * slideForce, ForceMode.Force);
 
@@ -83,7 +94,7 @@ namespace MovementInput
 
         private void StopSlide()
         {
-            isSliding = false;
+            playCon.isSliding = false;
 
             playerObj.localScale = new Vector3(playerObj.localScale.x, startYScale, playerObj.localScale.z);
         }

@@ -9,9 +9,14 @@ namespace MovementInput
         [Header("Movement")]
         [SerializeField] private float walkSpeed;
         [SerializeField] private float runSpeed;
+        [SerializeField] private float slideSpeed;
         [SerializeField] private float groundDrag;
+        [SerializeField] private float speedIncreaseMulti;
+        [SerializeField] private float slopeIncreaseMulti;
 
         private float moveSpeed;
+        private float desiredMoveSpeed;
+        private float lastDesiredMoveSpeed;
 
         [Header("Jump")]
         [SerializeField] private float jumpForce;
@@ -55,8 +60,11 @@ namespace MovementInput
             run,
             walk,
             crouch,
+            slide,
             air
         }
+
+        public bool isSliding;
 
         // Start is called before the first frame update
         void Start()
@@ -149,28 +157,82 @@ namespace MovementInput
 
         private void StateHandler()
         {
+            if (InputManager.Instance.getSlide())
+            {
+                state = MovementState.slide;
+
+                if (OnSlope() && rb.velocity.y < 0.1f)
+                {
+                    desiredMoveSpeed = slideSpeed;
+                }
+                else
+                {
+                    desiredMoveSpeed = runSpeed;
+                }
+            }
+
             //Crouch
             if (InputManager.Instance.getCrouch())
             {
                 state = MovementState.crouch;
-                moveSpeed = crouchSpeed;
+                desiredMoveSpeed = crouchSpeed;
             }
 
             //Move
             else if (grounded && InputManager.Instance.getRun())
             {
                 state = MovementState.run;
-                moveSpeed = runSpeed;
+                desiredMoveSpeed = runSpeed;
             }
             else if (grounded)
             {
                 state = MovementState.walk;
-                moveSpeed = walkSpeed;
+                desiredMoveSpeed = walkSpeed;
             }
             else 
             {
                 state = MovementState.air;
             }
+
+            if (Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 4f && moveSpeed != 0)
+            {
+                StopAllCoroutines();
+                StartCoroutine(SmoothlyLerpMoveSpeed());
+            }
+            else
+            {
+                moveSpeed = desiredMoveSpeed;
+            }
+
+            lastDesiredMoveSpeed = desiredMoveSpeed;
+        }
+
+        private IEnumerator SmoothlyLerpMoveSpeed()
+        {
+            float time = 0;
+            float difference = Mathf.Abs(desiredMoveSpeed - moveSpeed);
+            float startValue = moveSpeed;
+
+            while (time < difference)
+            {
+                moveSpeed = Mathf.Lerp(startValue, desiredMoveSpeed, time/difference);
+
+                if (OnSlope())
+                {
+                    float slopeAng = Vector3.Angle(Vector3.up, slopeHit.normal);
+                    float slopeAngIncrease = 1 + (slopeAng / 90f);
+
+                    time += Time.deltaTime * speedIncreaseMulti * slopeIncreaseMulti * slopeAngIncrease;
+                }
+                else
+                {
+                    time += Time.deltaTime * speedIncreaseMulti;
+                }
+                    
+                yield return null;
+            }
+
+            moveSpeed = desiredMoveSpeed;
         }
 
         private void MovePlayer()
@@ -182,7 +244,7 @@ namespace MovementInput
             //On slope
             if (OnSlope())
             {
-                rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 20f, ForceMode.Force);
+                rb.AddForce(GetSlopeMoveDirection(moveDir) * moveSpeed * 20f, ForceMode.Force);
             
                 if (rb.velocity.y > 0)
                 {
@@ -241,7 +303,7 @@ namespace MovementInput
             exitSlope = false;
         }
 
-        private bool OnSlope()
+        public bool OnSlope()
         {
             if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight* 0.5f + 0.3f))
             {
@@ -252,9 +314,9 @@ namespace MovementInput
             return false;
         }
 
-        private Vector3 GetSlopeMoveDirection()
+        public Vector3 GetSlopeMoveDirection(Vector3 direction)
         {
-            return Vector3.ProjectOnPlane(moveDir, slopeHit.normal).normalized;
+            return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
         }
     }
 }
