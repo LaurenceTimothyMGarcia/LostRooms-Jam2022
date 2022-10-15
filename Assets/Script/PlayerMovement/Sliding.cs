@@ -101,31 +101,8 @@ namespace MovementInput
 
         private void PlayerInput()
         {
-            if (InputManager.Instance.getMoveForward())
-            {
-                verticalInput = 1;
-            }
-            else if (InputManager.Instance.getMoveBackward())
-            {
-                verticalInput = -1;
-            }
-            else
-            {
-                verticalInput = 0;
-            }
-
-            if (InputManager.Instance.getMoveRight())
-            {
-                horizontalInput = 1;
-            }
-            else if (InputManager.Instance.getMoveLeft())
-            {
-                horizontalInput = -1;
-            }
-            else
-            {
-                horizontalInput = 0;
-            }
+            verticalInput = playCon.getVerticalInput();
+            horizontalInput = playCon.getHorizontalInput();
         }
     }
 }

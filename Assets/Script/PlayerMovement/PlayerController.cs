@@ -318,6 +318,18 @@ namespace MovementInput
         {
             return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
         }
+
+        /*** Setter Getter for Horizontal ***/
+
+        public float getHorizontalInput()
+        {
+            return horizontalInput;
+        }
+
+        public float getVerticalInput()
+        {
+            return verticalInput;
+        }
     }
 }
 

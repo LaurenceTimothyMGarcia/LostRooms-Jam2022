@@ -533,7 +533,7 @@ MonoBehaviour:
   jumpForce: 10
   jumpCooldown: 0.25
   airMulti: 0.4
-  crouchSpeed: 7
+  crouchSpeed: 3
   crouchYScale: 0.3
   playerHeight: 2
   whatIsGround:
@@ -582,7 +582,7 @@ MonoBehaviour:
   orientation: {fileID: 1406134844}
   playerObj: {fileID: 2097938298}
   maxSlideTime: 0.75
-  slideForce: 200
+  slideForce: 500
   slideYScale: 0.5
 --- !u!1 &963194225
 GameObject:
@@ -798,7 +798,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 0e06aa5ce7f88ab4887add01fd258f15, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
