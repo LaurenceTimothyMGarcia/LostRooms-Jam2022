@@ -13,6 +13,7 @@ namespace MovementInput
         [SerializeField] private float groundDrag;
         [SerializeField] private float speedIncreaseMulti;
         [SerializeField] private float slopeIncreaseMulti;
+        [SerializeField] private float wallRunSpeed;
 
         private float moveSpeed;
         private float desiredMoveSpeed;
@@ -61,10 +62,12 @@ namespace MovementInput
             walk,
             crouch,
             slide,
+            wallrunning,
             air
         }
 
         public bool isSliding;
+        public bool isWallRun;
 
         // Start is called before the first frame update
         void Start()
@@ -157,6 +160,12 @@ namespace MovementInput
 
         private void StateHandler()
         {
+            if (isWallRun)
+            {
+                state = MovementState.wallrunning;
+                desiredMoveSpeed = wallRunSpeed;
+            }
+
             if (InputManager.Instance.getSlide())
             {
                 state = MovementState.slide;

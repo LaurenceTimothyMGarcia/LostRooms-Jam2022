@@ -70,12 +70,17 @@ namespace MovementInput
 
         private void StartWallRun()
         {
+            playCon.isWallRun = true;
+        }
+
+        private void WallRunningMovement()
+        {
 
         }
 
         private void StopWallRun()
         {
-            
+
         }
     }
 }
