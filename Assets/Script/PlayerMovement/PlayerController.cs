@@ -271,7 +271,10 @@ namespace MovementInput
                 rb.AddForce(moveDir.normalized * moveSpeed * 10f * airMulti, ForceMode.Force);
             }
 
-            rb.useGravity = !OnSlope();
+            if (!isWallRun)
+            {
+                rb.useGravity = !OnSlope();
+            }
         }
 
         private void SpeedControl()

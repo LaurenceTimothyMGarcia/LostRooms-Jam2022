@@ -710,7 +710,10 @@ MonoBehaviour:
   wallCheckDistance: 0.7
   minJumpHeight: 2
   exitWallTime: 0.2
+  useGravity: 1
+  gravityCounterForce: 5
   orientation: {fileID: 1406134844}
+  cam: {fileID: 963194229}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,6 +814,7 @@ MonoBehaviour:
   sensX: 400
   sensY: 400
   orientation: {fileID: 1406134844}
+  camHolder: {fileID: 160762233}
 --- !u!1 &1380826963
 GameObject:
   m_ObjectHideFlags: 0

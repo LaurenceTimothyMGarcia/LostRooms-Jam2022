@@ -8,6 +8,7 @@ public class PlayerCam : MonoBehaviour
     [SerializeField] private float sensY;
 
     [SerializeField] private Transform orientation;
+    [SerializeField] private Transform camHolder;
 
     private float xRotation;
     private float yRotation;
@@ -32,7 +33,17 @@ public class PlayerCam : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         //Rotate Camera
-        transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+        camHolder.rotation = Quaternion.Euler(xRotation, yRotation, 0);
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
+    }
+
+    public void DoFOV(float endValue)
+    {
+        GetComponent<Camera>().fieldOfView = endValue;
+    }
+
+    public void DoTilt(float zTilt)
+    {
+        transform.localRotation = new Quaternion(transform.localRotation.x, transform.localRotation.y, zTilt, transform.localRotation.w);
     }
 }

@@ -36,9 +36,14 @@ namespace MovementInput
         private bool exitWall;
         private float exitWallTimer;
 
+        [Header("Gravity")]
+        [SerializeField] private bool useGravity;
+        [SerializeField] private float gravityCounterForce;
+
 
         [Header("References")]
         [SerializeField] private Transform orientation;
+        [SerializeField] private PlayerCam cam;
         private PlayerController playCon;
         private Rigidbody rb;
 
@@ -135,12 +140,17 @@ namespace MovementInput
             playCon.isWallRun = true;
 
             wallRunTimer = maxWallRunTime;
+
+            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+            cam.DoFOV(90f);
+            //if (wallLeft) cam.DoTilt(-5f);
+            //if (wallRight) cam.DoTilt(5f);
         }
 
         private void WallRunningMovement()
         {
-            rb.useGravity = false;
-            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+            rb.useGravity = useGravity;
 
             Vector3 wallNormal = wallRight ? rightWallHit.normal : leftWallHit.normal;
 
@@ -163,12 +173,23 @@ namespace MovementInput
             }
 
             if (!(wallLeft && horizontalInput > 0) && !(wallRight && horizontalInput < 0))
-            rb.AddForce(-wallNormal * 100, ForceMode.Force);
+            {
+                rb.AddForce(-wallNormal * 100, ForceMode.Force);
+            }
+                
+            if (useGravity)
+            {
+                rb.AddForce(transform.up * gravityCounterForce, ForceMode.Force);
+            }
+
         }
 
         private void StopWallRun()
         {
             playCon.isWallRun = false;
+
+            cam.DoFOV(80f);
+            cam.DoTilt(0f);
         }
 
         private void WallJump()
