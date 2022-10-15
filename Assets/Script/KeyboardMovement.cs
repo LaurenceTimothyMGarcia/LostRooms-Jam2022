@@ -8,6 +8,8 @@ namespace MovementInput
     {
         void Update()
         {
+
+            //Base Movement
             if (Input.GetKey(KeyCode.W))
             {
                 InputManager.Instance.setMoveForward(true);
@@ -44,6 +46,7 @@ namespace MovementInput
                 InputManager.Instance.setMoveRight(false);
             }
 
+            //Jump
             if (Input.GetKey(KeyCode.Space))
             {
                 InputManager.Instance.setJump(true);
@@ -53,6 +56,7 @@ namespace MovementInput
                 InputManager.Instance.setJump(false);
             }
 
+            //Dash
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 InputManager.Instance.setDash(true);
