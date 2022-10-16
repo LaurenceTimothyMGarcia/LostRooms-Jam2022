@@ -40,6 +40,7 @@ public class EnzoFollow : MonoBehaviour
         if (playerInRange)
         {
             walkPointSet = false;
+            FindObjectOfType<AudioManager>().Play("SeeYou");
             Chase();
         }
         else
