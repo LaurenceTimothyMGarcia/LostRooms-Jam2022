@@ -16,7 +16,9 @@ public class EnzoFollow : MonoBehaviour
     [SerializeField] private Vector3 walkPoint;
     [SerializeField] private float walkPointRange;
     [SerializeField] private float timeWalk;
+    [SerializeField] private float timeTaunt;
 
+    private float timerTaunt;
     private float timerWalking;
     private bool walkPointSet;
 
@@ -70,10 +72,21 @@ public class EnzoFollow : MonoBehaviour
             timerWalking -= Time.deltaTime;
         }
 
+        if (timerTaunt > 0f)
+        {
+            timerTaunt -= Time.deltaTime;
+        }
+
         if (distanceToWalkPoint.magnitude < 1f || timerWalking <= 0f)
         {
             walkPointSet = false;
             timerWalking = timeWalk;
+        }
+
+        if (timerTaunt <= 0f)
+        {
+            timerTaunt = timeTaunt;
+            FindObjectOfType<AudioManager>().Play("WhereAreYou");
         }
     }
 

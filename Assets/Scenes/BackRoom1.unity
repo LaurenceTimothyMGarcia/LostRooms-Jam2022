@@ -1936,6 +1936,7 @@ MonoBehaviour:
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 15
   timeWalk: 5
+  timeTaunt: 30
   sightRange: 30
   playerInRange: 0
   debugWalking: {fileID: 565398644}
@@ -2713,7 +2714,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: WhereAreYou
     clip: {fileID: 8300000, guid: 4c06d6a536b98e24b885e5b95c1e820d, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}

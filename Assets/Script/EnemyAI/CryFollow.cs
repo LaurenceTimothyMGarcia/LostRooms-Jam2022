@@ -40,6 +40,7 @@ public class CryFollow : MonoBehaviour
         if (playerInRange)
         {
             walkPointSet = false;
+            FindObjectOfType<AudioManager>().Play("ComeCloser");
             Chase();
         }
         else
