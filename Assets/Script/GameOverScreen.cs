@@ -8,6 +8,7 @@ using TMPro;
 public class GameOverScreen : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI finalTime;
+    [SerializeField] private TextMeshProUGUI originalTimer;
     [SerializeField] private GameObject gameOverScreen;
 
     void Start()
@@ -19,6 +20,7 @@ public class GameOverScreen : MonoBehaviour
     {
         gameOverScreen.SetActive(true);
         finalTime.text = time.ToString("00:00.00");
+        originalTimer.enabled = false;
     }
 
     public void RestartButton()

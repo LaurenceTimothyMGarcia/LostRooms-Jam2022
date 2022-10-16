@@ -1253,6 +1253,7 @@ GameObject:
   - component: {fileID: 777259415}
   - component: {fileID: 777259414}
   - component: {fileID: 777259418}
+  - component: {fileID: 777259419}
   - component: {fileID: 777259417}
   m_Layer: 8
   m_Name: Main Camera
@@ -1404,6 +1405,19 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &777259419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777259413}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87234d1b3a33a044cbce2a8b666a44f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  screenShotButton: 9
 --- !u!1 &891732912
 GameObject:
   m_ObjectHideFlags: 0
@@ -1464,8 +1478,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Chachi
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9fac4139c1d406f449e494448f05479f, type: 2}
-  m_sharedMaterial: {fileID: 6432408940599976666, guid: 9fac4139c1d406f449e494448f05479f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f38fd986f7c862e48b84c40d33308839, type: 2}
+  m_sharedMaterial: {fileID: -6265344548099681520, guid: f38fd986f7c862e48b84c40d33308839, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1932,7 +1946,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Chachi
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9fac4139c1d406f449e494448f05479f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f38fd986f7c862e48b84c40d33308839, type: 2}
   m_sharedMaterial: {fileID: 6432408940599976666, guid: 9fac4139c1d406f449e494448f05479f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1996,7 +2010,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1275166988
