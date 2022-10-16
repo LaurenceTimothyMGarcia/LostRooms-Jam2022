@@ -8,16 +8,16 @@ using TMPro;
 public class GameOverScreen : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI finalTime;
-    [SerializeField] private Image gameOverScreen;
+    [SerializeField] private GameObject gameOverScreen;
 
     void Start()
     {
-        gameOverScreen.enabled = false;
+        gameOverScreen.SetActive(false);
     }
 
     public void Setup(float time)
     {
-        gameOverScreen.enabled = true;
+        gameOverScreen.SetActive(true);
         finalTime.text = time.ToString("00:00.00");
     }
 

@@ -335,7 +335,6 @@ namespace MovementInput
         {
             if (col.collider.CompareTag("Enemy"))
             {
-                Debug.Log("Chat");
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
                 desiredMoveSpeed = 0f;

@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Dead");
             GameOver();
         }
         

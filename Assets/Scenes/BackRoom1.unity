@@ -1743,7 +1743,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   finalTime: {fileID: 561689400}
-  gameOverScreen: {fileID: 537872556}
+  gameOverScreen: {fileID: 537872554}
 --- !u!1001 &1816419219
 PrefabInstance:
   m_ObjectHideFlags: 0
