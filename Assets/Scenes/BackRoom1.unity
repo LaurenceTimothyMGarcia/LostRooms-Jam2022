@@ -1956,7 +1956,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &1110321735
 Light:
   m_ObjectHideFlags: 0
@@ -2052,7 +2052,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &1186812819
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2709,7 +2709,7 @@ MonoBehaviour:
   - name: ComeCloser
     clip: {fileID: 8300000, guid: c40ef9fd68575ac43b0757f09a1613c7, type: 3}
     volume: 1
-    pitch: 1
+    pitch: 2
     loop: 0
     source: {fileID: 0}
   - name: WhereAreYou
