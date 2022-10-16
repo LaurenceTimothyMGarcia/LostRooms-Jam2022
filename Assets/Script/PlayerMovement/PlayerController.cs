@@ -89,8 +89,6 @@ namespace MovementInput
             SpeedControl();
             StateHandler();
 
-            Debug.Log("Move Speed " + moveSpeed);
-
             //Apply drag
             if (grounded)
             {
@@ -329,6 +327,17 @@ namespace MovementInput
         public Vector3 GetSlopeMoveDirection(Vector3 direction)
         {
             return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
+        }
+
+        public void OnCollisionEnter(Collision col)
+        {
+            if (col.collider.CompareTag("Enemy"))
+            {
+                Debug.Log("Chat");
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                Destroy(this.gameObject);
+            }
         }
 
         /*** Setter Getter for Horizontal ***/
