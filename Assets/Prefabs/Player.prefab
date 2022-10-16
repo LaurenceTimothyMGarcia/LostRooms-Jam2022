@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 1369058343302903942}
   - component: {fileID: 1369058343302903936}
   - component: {fileID: 1369058343302903937}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -341,6 +341,7 @@ MonoBehaviour:
     m_Bits: 8
   maxSlopeAngle: 40
   orientation: {fileID: 1369058343164881351}
+  gameManage: {fileID: 0}
   state: 0
   isSliding: 0
   isWallRun: 0
