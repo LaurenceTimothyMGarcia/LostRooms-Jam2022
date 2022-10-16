@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Timer Settings")]
     [SerializeField] private float currentTime;
-    private bool isRunning;
+    [HideInInspector] public bool isRunning;
 
     // Start is called before the first frame update
     void Start()
@@ -23,17 +23,15 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player == null)
-        {
-            isRunning = false;
-            Debug.Log("Dead");
-            GameOver();
-        }
 
         if (isRunning)
         {
             currentTime += Time.deltaTime;
-            
+        }
+        else
+        {
+            Debug.Log("Dead");
+            GameOver();
         }
         
         timerText.text = currentTime.ToString("00:00.00");

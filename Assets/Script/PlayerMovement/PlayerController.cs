@@ -52,6 +52,8 @@ namespace MovementInput
 
         private Rigidbody rb;
 
+        [SerializeField] private GameManager gameManage;
+
 
         //Player States
         public MovementState state;
@@ -336,7 +338,8 @@ namespace MovementInput
                 Debug.Log("Chat");
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
-                Destroy(this.gameObject);
+                desiredMoveSpeed = 0f;
+                gameManage.isRunning = false;
             }
         }
 

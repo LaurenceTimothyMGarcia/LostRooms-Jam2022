@@ -10,6 +10,11 @@ public class GameOverScreen : MonoBehaviour
     [SerializeField] private TextMeshProUGUI finalTime;
     [SerializeField] private Image gameOverScreen;
 
+    void Start()
+    {
+        gameOverScreen.enabled = false;
+    }
+
     public void Setup(float time)
     {
         gameOverScreen.enabled = true;
