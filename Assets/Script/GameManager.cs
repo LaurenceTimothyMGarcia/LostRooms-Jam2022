@@ -33,7 +33,16 @@ public class GameManager : MonoBehaviour
             GameOver();
         }
         
-        timerText.text = currentTime.ToString("00:00.00");
+        timerText.text = FormatTime(currentTime);
+    }
+
+    private string FormatTime(float time)
+    {
+        int minutes = (int) time / 60 ;
+        int seconds = (int) time - 60 * minutes;
+        int milliseconds = (int) (1000 * (time - minutes * 60 - seconds));
+
+        return string.Format("{0:00}:{1:00}:{2:000}", minutes, seconds, milliseconds);
     }
 
     public void GameOver()
