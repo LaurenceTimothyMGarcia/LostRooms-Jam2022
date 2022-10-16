@@ -2578,9 +2578,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1369058343302903938, guid: 06243540eb421544f8b2a5a6077c3bb4, type: 3}
+      propertyPath: runSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1369058343302903938, guid: 06243540eb421544f8b2a5a6077c3bb4, type: 3}
+      propertyPath: walkSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1369058343302903938, guid: 06243540eb421544f8b2a5a6077c3bb4, type: 3}
       propertyPath: gameManage
       value: 
       objectReference: {fileID: 612993558}
+    - target: {fileID: 1369058343302903938, guid: 06243540eb421544f8b2a5a6077c3bb4, type: 3}
+      propertyPath: slideSpeed
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 1369058343302903942, guid: 06243540eb421544f8b2a5a6077c3bb4, type: 3}
       propertyPath: cam
       value: 
